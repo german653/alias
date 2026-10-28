@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Copiar alias</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--text:#14213d;--muted:#5b6475;--accent:#009ee3;--accent-text:#fff;--ok:#1a9d5a;--border:#dfe5ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#1a2133;--text:#eef2fa;--muted:#9aa5bb;--accent:#2db3f0;--accent-text:#06202e;--ok:#46c985;--border:#2b3550;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1420;--card:#1a2133;--text:#eef2fa;--muted:#9aa5bb;--accent:#2db3f0;--accent-text:#06202e;--ok:#46c985;--border:#2b3550;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 22px;width:100%;max-width:380px;text-align:center}
+.label{color:var(--muted);font-size:14px;margin:0 0 6px}
+.alias{font-size:clamp(22px,7vw,30px);font-weight:700;word-break:break-all;margin:0 0 22px;user-select:all}
+button{width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:600;background:var(--accent);color:var(--accent-text);cursor:pointer}
+button.done{background:var(--ok);color:#fff}
+.steps{color:var(--muted);font-size:14px;line-height:1.5;margin:18px 0 0}
+.hint{color:var(--muted);font-size:13px;margin-top:10px;min-height:18px}
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="label">Alias para transferir</p>
+  <p class="alias" id="alias">padelsarmiento</p>
+  <button id="btn" type="button">Copiar alias</button>
+  <p class="hint" id="hint"></p>
+  <p class="steps">Después abrí Mercado Pago, tu banco o la billetera que quieras, elegí <b>Transferir</b> y pegá el alias.</p>
+</div>
+<script>
+(function(){
+  var DEFAULT="padelsarmiento";
+  var raw="";
+  try{raw=decodeURIComponent((location.hash||"").replace(/^#/,""));}catch(e){}
+  var alias=/^[A-Za-z0-9._~-]{3,40}$/.test(raw)?raw:DEFAULT;
+  var el=document.getElementById("alias"),btn=document.getElementById("btn"),hint=document.getElementById("hint");
+  el.textContent=alias;
+  function ok(){btn.textContent="¡Copiado!";btn.className="done";hint.textContent="";setTimeout(function(){btn.textContent="Copiar alias";btn.className="";},2500);}
+  function fallback(){
+    var ta=document.createElement("textarea");ta.value=alias;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.focus();ta.select();
+    var done=false;try{done=document.execCommand("copy");}catch(e){}
+    document.body.removeChild(ta);
+    if(done){ok();}else{
+      var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);
+      hint.textContent="Mantené apretado el alias y elegí Copiar.";
+    }
+  }
+  btn.addEventListener("click",function(){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(alias).then(ok,fallback);
+    }else{fallback();}
+  });
+})();
+</script>
+</body>
+</html>
