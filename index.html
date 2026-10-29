@@ -3,44 +3,152 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Copiar alias</title>
+<meta name="theme-color" content="#0a1330">
+<title>Transferir por alias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f7fa;--card:#fff;--text:#14213d;--muted:#5b6475;--accent:#009ee3;--accent-text:#fff;--ok:#1a9d5a;--border:#dfe5ee;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#1a2133;--text:#eef2fa;--muted:#9aa5bb;--accent:#2db3f0;--accent-text:#06202e;--ok:#46c985;--border:#2b3550;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f1420;--card:#1a2133;--text:#eef2fa;--muted:#9aa5bb;--accent:#2db3f0;--accent-text:#06202e;--ok:#46c985;--border:#2b3550;color-scheme:dark}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 22px;width:100%;max-width:380px;text-align:center}
-.label{color:var(--muted);font-size:14px;margin:0 0 6px}
-.alias{font-size:clamp(22px,7vw,30px);font-weight:700;word-break:break-all;margin:0 0 22px;user-select:all}
-button{width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:600;background:var(--accent);color:var(--accent-text);cursor:pointer}
-button.done{background:var(--ok);color:#fff}
-.steps{color:var(--muted);font-size:14px;line-height:1.5;margin:18px 0 0}
-.hint{color:var(--muted);font-size:13px;margin-top:10px;min-height:18px}
+:root{
+  --deep:#0a1330;
+  --mid:#16275a;
+  --mint:#3ee0a5;
+  --mint-d:#25c98d;
+  --ticket:#f7f8fc;
+  --ink:#0d1838;
+  --muted:#5a6483;
+  --line:#cdd3e4;
+  --ok:#1b8a5a;
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--deep)}
+body{
+  margin:0;min-height:100vh;min-height:100dvh;color:#fff;
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-weight:500;
+  background:radial-gradient(120% 70% at 50% 0%,#24408f 0%,var(--mid) 38%,var(--deep) 100%) fixed;
+  position:relative;overflow-x:hidden;
+  padding:calc(34px + env(safe-area-inset-top,0px)) 18px calc(30px + env(safe-area-inset-bottom,0px));
+}
+body::before{ /* trama de puntos */
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.16) 1.2px,transparent 1.3px);
+  background-size:22px 22px;
+  -webkit-mask:linear-gradient(#000,transparent 75%);mask:linear-gradient(#000,transparent 75%);
+}
+.wrap{position:relative;max-width:440px;margin:0 auto}
+
+/* Cabecera */
+.hero{text-align:center;padding:6px 6px 26px}
+.badge{
+  width:60px;height:60px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#6af0bd,var(--mint-d));color:var(--deep);
+  box-shadow:0 12px 28px rgba(62,224,165,.35);
+  animation:pop .7s cubic-bezier(.2,1.3,.4,1) both;
+}
+.badge svg{width:30px;height:30px}
+@keyframes pop{0%{transform:scale(.4) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+h1{margin:0 0 8px;font-weight:800;font-size:clamp(30px,9vw,40px);line-height:1.05;letter-spacing:-1px}
+.sub{margin:0 auto;max-width:300px;font-size:16px;line-height:1.45;color:rgba(255,255,255,.78)}
+
+/* Ticket */
+.top,.bottom{background:var(--ticket);color:var(--ink);position:relative}
+.top{
+  border-radius:22px 22px 0 0;padding:26px 24px;
+  -webkit-mask:radial-gradient(circle 13px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 13px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat;
+}
+.bottom{
+  border-radius:0 0 22px 22px;padding:24px;
+  -webkit-mask:radial-gradient(circle 13px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 13px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat;
+}
+.bottom::before{content:"";position:absolute;left:20px;right:20px;top:0;border-top:2px dashed var(--line)}
+.shadow{filter:drop-shadow(0 22px 34px rgba(0,0,0,.4))}
+.k{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--muted)}
+.alias{
+  margin:0 0 22px;font-weight:800;line-height:1.05;letter-spacing:-1px;
+  font-size:clamp(30px,10vw,46px);word-break:break-all;
+  user-select:all;-webkit-user-select:all;
+}
+.btn{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:11px;
+  border:0;border-radius:16px;padding:19px 18px;font:inherit;font-size:19px;font-weight:800;letter-spacing:-.2px;
+  background:var(--deep);color:var(--mint);cursor:pointer;
+  box-shadow:0 8px 0 #000a,0 14px 26px rgba(10,19,48,.35);
+  transform:translateY(0);transition:transform .12s,box-shadow .12s,background .2s,color .2s;
+}
+.btn:active{transform:translateY(5px);box-shadow:0 3px 0 #000a,0 6px 14px rgba(10,19,48,.3)}
+.btn:focus-visible{outline:3px solid var(--mint-d);outline-offset:4px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.done{background:var(--ok);color:#fff}
+.hint{min-height:20px;margin:14px 2px 0;font-size:13.5px;color:var(--muted);text-align:center}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:center;font-size:15.5px;line-height:1.4}
+.n{width:32px;height:32px;border-radius:50%;background:var(--deep);color:var(--mint);display:grid;place-items:center;font-size:14px;font-weight:800}
+.steps b{font-weight:800}
+
+
+@media (prefers-reduced-motion:reduce){.badge{animation:none}.btn{transition:none}}
 </style>
 </head>
 <body>
-<div class="card">
-  <p class="label">Alias para transferir</p>
-  <p class="alias" id="alias">padelsarmiento</p>
-  <button id="btn" type="button">Copiar alias</button>
-  <p class="hint" id="hint"></p>
-  <p class="steps">Después abrí Mercado Pago, tu banco o la billetera que quieras, elegí <b>Transferir</b> y pegá el alias.</p>
+<div class="wrap">
+  <header class="hero">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14"/><path d="M14 4l4 4-4 4"/><path d="M20 16H6"/><path d="M10 12l-4 4 4 4"/></svg>
+    </div>
+    <h1>Pagá por transferencia</h1>
+    <p class="sub">Copiá el alias y hacé el pago desde la app que quieras.</p>
+  </header>
+
+  <div class="shadow">
+    <section class="top" aria-labelledby="alias">
+      <p class="k">Alias</p>
+      <p class="alias" id="alias">padelsarmiento</p>
+      <button class="btn" id="btn" type="button">
+        <svg id="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15"/></svg>
+        <span id="btnText">Copiar alias</span>
+      </button>
+      <p class="hint" id="hint" role="status" aria-live="polite"></p>
+    </section>
+    <section class="bottom">
+      <ol class="steps">
+        <li><span class="n">1</span><span><b>Copiá</b> el alias con el botón.</span></li>
+        <li><span class="n">2</span><span>Abrí tu app o banco y elegí <b>Transferir</b>.</span></li>
+        <li><span class="n">3</span><span><b>Pegá</b> el alias, poné el monto y confirmá.</span></li>
+      </ol>
+    </section>
+  </div>
+
 </div>
+
 <script>
 (function(){
   var DEFAULT="padelsarmiento";
   var raw="";
-  try{raw=decodeURIComponent((location.hash||"").replace(/^#/,""));}catch(e){}
+  try{
+    raw=decodeURIComponent((location.hash||"").replace(/^#/,""));
+    if(!raw){raw=new URLSearchParams(location.search).get("alias")||"";}
+  }catch(e){}
   var alias=/^[A-Za-z0-9._~-]{3,40}$/.test(raw)?raw:DEFAULT;
-  var el=document.getElementById("alias"),btn=document.getElementById("btn"),hint=document.getElementById("hint");
+  var el=document.getElementById("alias"),btn=document.getElementById("btn"),
+      txt=document.getElementById("btnText"),hint=document.getElementById("hint"),ico=document.getElementById("ico");
+  var COPY=ico.innerHTML,CHECK='<path d="M5 12.5l4.5 4.5L19 7.5"/>';
   el.textContent=alias;
-  function ok(){btn.textContent="¡Copiado!";btn.className="done";hint.textContent="";setTimeout(function(){btn.textContent="Copiar alias";btn.className="";},2500);}
+  document.title="Transferir a "+alias;
+  var timer;
+  function ok(){
+    clearTimeout(timer);
+    txt.textContent="¡Copiado!";btn.className="btn done";ico.innerHTML=CHECK;
+    hint.textContent="Ahora abrí tu app y pegalo en Transferir.";
+    timer=setTimeout(function(){txt.textContent="Copiar alias";btn.className="btn";ico.innerHTML=COPY;hint.textContent="";},3500);
+  }
   function fallback(){
-    var ta=document.createElement("textarea");ta.value=alias;ta.style.position="fixed";ta.style.opacity="0";
-    document.body.appendChild(ta);ta.focus();ta.select();
+    var ta=document.createElement("textarea");ta.value=alias;ta.setAttribute("readonly","");
+    ta.style.position="fixed";ta.style.top="0";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);
     var done=false;try{done=document.execCommand("copy");}catch(e){}
     document.body.removeChild(ta);
     if(done){ok();}else{
