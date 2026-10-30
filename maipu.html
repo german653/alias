@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1840">
+<title>Club Maipú Pádel – Pagos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#0a1840;--mid:#142c78;--gold:#f2b632;--ticket:#f7f8fc;--ink:#0d1838;--muted:#566083;--line:#cdd3e4;--ok:#1b8a5a;box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--deep)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:#fff;font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-weight:500;
+background:radial-gradient(120% 70% at 50% 0%,#2a4aa8 0%,var(--mid) 38%,var(--deep) 100%) fixed;
+padding:calc(30px + env(safe-area-inset-top,0px)) 18px calc(30px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:440px;margin:0 auto}
+.hero{text-align:center;padding:4px 6px 24px}
+.logo{width:112px;height:112px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #fff;box-shadow:0 0 0 5px var(--gold),0 14px 30px rgba(0,0,0,.35)}
+h1{margin:0 0 8px;font-weight:800;font-size:clamp(26px,8vw,34px);line-height:1.1;letter-spacing:-.5px}
+.sub{margin:0 auto;max-width:300px;font-size:16px;line-height:1.45;color:rgba(255,255,255,.8)}
+[hidden]{display:none!important}
+.choices{display:grid;gap:14px}
+.choice{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-radius:20px;padding:24px 22px;font:inherit;text-align:left;cursor:pointer;
+background:var(--ticket);color:var(--ink);box-shadow:0 8px 0 rgba(0,0,0,.28),0 16px 30px rgba(0,0,0,.28);transition:transform .12s,box-shadow .12s}
+.choice:active{transform:translateY(5px);box-shadow:0 3px 0 rgba(0,0,0,.28),0 8px 16px rgba(0,0,0,.25)}
+.choice:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.choice b{display:block;font-size:30px;font-weight:800;letter-spacing:-.5px}
+.choice span{display:block;margin-top:2px;font-size:15px;color:var(--muted)}
+.choice svg{width:30px;height:30px;flex:none;color:var(--deep)}
+.back{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 4px;border:0;background:none;color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.back svg{width:20px;height:20px}
+.shadow{filter:drop-shadow(0 22px 34px rgba(0,0,0,.4))}
+.top,.bottom{background:var(--ticket);color:var(--ink);position:relative}
+.top{border-radius:22px 22px 0 0;padding:26px 24px;
+-webkit-mask:radial-gradient(circle 13px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat;
+mask:radial-gradient(circle 13px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat}
+.bottom{border-radius:0 0 22px 22px;padding:24px;
+-webkit-mask:radial-gradient(circle 13px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat;
+mask:radial-gradient(circle 13px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat}
+.bottom::before{content:"";position:absolute;left:20px;right:20px;top:0;border-top:2px dashed var(--line)}
+.tag{display:inline-block;margin:0 0 14px;padding:6px 14px;border-radius:30px;background:var(--deep);color:var(--gold);font-size:13px;font-weight:800;letter-spacing:.3px}
+.k{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--muted)}
+.alias{margin:0 0 18px;font-weight:800;line-height:1.05;letter-spacing:-1px;font-size:clamp(28px,9vw,40px);word-break:break-all;user-select:all;-webkit-user-select:all}
+.titular{margin:0 0 22px;font-size:19px;font-weight:700;line-height:1.25}
+.btn{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;border:0;border-radius:16px;padding:19px 18px;font:inherit;font-size:19px;font-weight:800;background:var(--deep);color:var(--gold);cursor:pointer;
+box-shadow:0 8px 0 #000a,0 14px 26px rgba(10,24,64,.35);transition:transform .12s,box-shadow .12s,background .2s,color .2s}
+.btn:active{transform:translateY(5px);box-shadow:0 3px 0 #000a,0 6px 14px rgba(10,24,64,.3)}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.done{background:var(--ok);color:#fff}
+.hint{min-height:20px;margin:14px 2px 0;font-size:13.5px;color:var(--muted);text-align:center}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:center;font-size:15px;line-height:1.4}
+.n{width:32px;height:32px;border-radius:50%;background:var(--deep);color:var(--gold);display:grid;place-items:center;font-size:14px;font-weight:800}
+@media (prefers-reduced-motion:reduce){.choice,.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <img class="logo" alt="Club Maipú Pádel" src="data:image/jpeg;base64,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">
+    <h1>Club Maipú Pádel</h1>
+    <p class="sub" id="sub">Elegí tu cancha para ver el alias de pago.</p>
+  </header>
+
+  <section id="pick" class="choices" aria-label="Elegí tu cancha">
+    <button class="choice" type="button" data-court="indoor">
+      <div><b>Indoor</b><span>Canchas cubiertas</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <button class="choice" type="button" data-court="outdoor">
+      <div><b>Outdoor</b><span>Canchas al aire libre</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </section>
+
+  <section id="detail" hidden>
+    <button class="back" id="back" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      Cambiar cancha
+    </button>
+    <div class="shadow">
+      <div class="top">
+        <span class="tag" id="tag"></span>
+        <p class="k">Alias</p>
+        <p class="alias" id="alias"></p>
+        <p class="k">Titular de la cuenta</p>
+        <p class="titular" id="titular"></p>
+        <button class="btn" id="btn" type="button">
+          <svg id="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15"/></svg>
+          <span id="btnText">Copiar alias</span>
+        </button>
+        <p class="hint" id="hint" role="status" aria-live="polite"></p>
+      </div>
+      <div class="bottom">
+        <ol class="steps">
+          <li><span class="n">1</span><span><b>Copiá</b> el alias con el botón.</span></li>
+          <li><span class="n">2</span><span>Abrí tu billetera o banco y elegí <b>Transferir</b>.</span></li>
+          <li><span class="n">3</span><span><b>Pegá</b> el alias, revisá el titular, poné el monto y confirmá.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var COURTS={
+    indoor:{tag:"CANCHAS INDOOR",alias:"Maipu.padel",titular:"Mariano Adolfo Fernández"},
+    outdoor:{tag:"CANCHAS OUTDOOR",alias:"Padel.maipu",titular:"Alba Inés Rocco"}
+  };
+  var $=function(id){return document.getElementById(id)};
+  var pick=$("pick"),detail=$("detail"),sub=$("sub"),btn=$("btn"),txt=$("btnText"),hint=$("hint"),ico=$("ico"),aliasEl=$("alias");
+  var COPY=ico.innerHTML,CHECK='<path d="M5 12.5l4.5 4.5L19 7.5"/>',timer,current=null;
+  function reset(){clearTimeout(timer);txt.textContent="Copiar alias";btn.className="btn";ico.innerHTML=COPY;hint.textContent=""}
+  function show(key,push){
+    var c=COURTS[key];if(!c){return home(false)}
+    current=c;reset();
+    $("tag").textContent=c.tag;aliasEl.textContent=c.alias;$("titular").textContent=c.titular;
+    pick.hidden=true;detail.hidden=false;sub.textContent="Transferí a la cuenta de las canchas "+(key==="indoor"?"indoor":"outdoor")+".";
+    if(push){try{history.replaceState(null,"","#"+key)}catch(e){}}
+    window.scrollTo(0,0);
+  }
+  function home(push){
+    current=null;detail.hidden=true;pick.hidden=false;sub.textContent="Elegí tu cancha para ver el alias de pago.";
+    if(push){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
+  }
+  pick.addEventListener("click",function(e){var b=e.target.closest("[data-court]");if(b){show(b.getAttribute("data-court"),true)}});
+  $("back").addEventListener("click",function(){home(true)});
+  function ok(){
+    clearTimeout(timer);txt.textContent="¡Copiado!";btn.className="btn done";ico.innerHTML=CHECK;
+    hint.textContent="Ahora abrí tu billetera o banco y pegalo en Transferir.";
+    timer=setTimeout(reset,3500);
+  }
+  function fallback(){
+    var ta=document.createElement("textarea");ta.value=current.alias;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.top="0";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);
+    var done=false;try{done=document.execCommand("copy")}catch(e){}
+    document.body.removeChild(ta);
+    if(done){ok()}else{var r=document.createRange();r.selectNodeContents(aliasEl);var s=getSelection();s.removeAllRanges();s.addRange(r);hint.textContent="Mantené apretado el alias y elegí Copiar."}
+  }
+  btn.addEventListener("click",function(){
+    if(!current){return}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(current.alias).then(ok,fallback)}else{fallback()}
+  });
+  var h=(location.hash||"").replace(/^#/,"").toLowerCase();
+  if(COURTS[h]){show(h,false)}
+})();
+</script>
+</body>
+</html>
